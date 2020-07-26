@@ -4,5 +4,5 @@ go 1.14
 
 require (
 	github.com/golang/protobuf v1.3.3
-	github.com/iok200/blada v1.0.2
+	github.com/iok200/blada v1.0.3
 )
