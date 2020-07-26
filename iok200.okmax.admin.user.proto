@@ -1,0 +1,114 @@
+syntax = "proto3";
+package iok200.okmax.admin;
+option go_package = "github.com/iok200/okmax-admin-api/pb";
+import "common.proto";
+import "iok200.okmax.admin.model.proto";
+import "google/protobuf/timestamp.proto";
+
+message UserCreateRequest {
+    // 用户信息
+    User user = 1;
+    // 角色ID
+    repeated string roleIds = 2;
+}
+
+
+message UserUpdateRequest {
+    // 用户信息
+    User user = 1;
+}
+
+
+message UserQueryRequest {
+    iok200.common.PageRequest page = 1;
+    // 用户名
+    string userName = 2;
+    // 账号
+    string loginName = 3;
+}
+message UserQueryResult {
+    iok200.common.ResultState state = 1;
+    iok200.common.PageResult page = 2;
+    // 用户列表
+    repeated User users = 3;
+}
+
+
+message UserLoginRequest {
+    // 账号
+    string loginName = 1;
+    // 密码
+    string loginPass = 2;
+}
+message UserLoginResult {
+    iok200.common.ResultState state = 1;
+    // 登录用户信息
+    User user = 2;
+    // 登录令牌
+    string token = 3;
+    // 令牌到期时间
+    google.protobuf.Timestamp tokenTimeout = 4;
+}
+
+
+message UserQueryByIdResult {
+    iok200.common.ResultState state = 1;
+    // 用户信息
+    User user = 2;
+}
+
+
+message UserQueryRoleResult {
+    iok200.common.ResultState state = 1;
+    // 用户ID
+    repeated Role roles = 2;
+}
+
+
+message UserQueryAuthResult {
+    iok200.common.ResultState state = 1;
+    // 用户ID
+    repeated Auth auths = 2;
+}
+
+
+message UserBindRoleRequest {
+    // 用户ID
+    string userId = 1;
+    // 角色ID
+    repeated string roleIds = 2;
+}
+
+// 用户服务
+service UserService {
+    // 创建
+    rpc Create (UserCreateRequest) returns (iok200.common.ResultState) {
+    }
+    // 修改
+    rpc Update (UserUpdateRequest) returns (iok200.common.ResultState) {
+    }
+    // ID删除
+    rpc DeleteById (iok200.common.IdsRequest) returns (iok200.common.ResultState) {
+    }
+    // 查询
+    rpc Query (UserQueryRequest) returns (UserQueryResult) {
+    }
+    // ID查询
+    rpc QueryById (iok200.common.IdRequest) returns (UserQueryByIdResult) {
+    }
+    // 登录
+    rpc Login (UserLoginRequest) returns (UserLoginResult) {
+    }
+    // 修改可用
+    rpc UpdateEnable (iok200.common.IdsRequest) returns (iok200.common.ResultState) {
+    }
+    // 查询用户角色
+    rpc QueryRole (iok200.common.IdRequest) returns (UserQueryRoleResult) {
+    }
+    // 查询用户权限
+    rpc QueryAuth (iok200.common.IdRequest) returns (UserQueryAuthResult) {
+    }
+    // 绑定权限
+    rpc BindRole (UserBindRoleRequest) returns (iok200.common.ResultState) {
+    }
+}

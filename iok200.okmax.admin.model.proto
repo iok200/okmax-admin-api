@@ -1,0 +1,55 @@
+syntax = "proto3";
+package iok200.okmax.admin;
+option go_package = "github.com/iok200/okmax-admin-api/pb";
+import "common.proto";
+
+// 用户
+message User {
+    iok200.common.Model basic = 1;
+    // 账号
+    string loginName = 2;
+    // 密码
+    string loginPass = 3;
+    // 用户名
+    string userName = 4;
+    // 是否可用
+    bool enable = 5;
+}
+
+// 角色
+message Role {
+    iok200.common.Model basic = 1;
+    // 角色名
+    string name = 2;
+    // 角色描述
+    string info = 3;
+    // 是否可用
+    bool enable = 4;
+}
+
+// 权限类型
+enum AuthType {
+    // 菜单
+    Menu = 0;
+    // 功能
+    Function = 1;
+}
+
+// 权限
+message Auth {
+    iok200.common.Model basic = 1;
+    // 权限名
+    string name = 2;
+    // 权限描述
+    string info = 3;
+    // 权限类型
+    AuthType type = 4;
+    // 图标
+    string icon = 5;
+    // 路径
+    string path = 6;
+    // 上级权限ID
+    string pid = 7;
+    // 是否可用
+    bool enable = 8;
+}

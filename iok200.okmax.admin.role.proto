@@ -1,0 +1,60 @@
+syntax = "proto3";
+package iok200.okmax.admin;
+option go_package = "github.com/iok200/okmax-admin-api/pb";
+import "common.proto";
+import "iok200.okmax.admin.model.proto";
+
+message RoleCreateRequest {
+    // 角色信息
+    Role role = 1;
+    // 权限ID
+    repeated string authIds = 2;
+}
+
+
+message RoleUpdateRequest {
+    // 角色信息
+    Role role = 1;
+}
+
+
+message RoleQueryRequest {
+    iok200.common.PageRequest page = 1;
+    // 角色名
+    string roleName = 2;
+    // 角色描述
+    string roleInfo = 3;
+}
+message RoleQueryResult {
+    iok200.common.ResultState state = 1;
+    iok200.common.PageResult page = 2;
+    // 角色列表
+    repeated Role roles = 3;
+}
+
+
+message RoleBindAuthRequest {
+    // 角色ID
+    string roleId = 1;
+    // 权限ID
+    repeated string authIds = 2;
+}
+
+// 用户服务
+service RoleService {
+    // 创建
+    rpc Create (RoleCreateRequest) returns (iok200.common.ResultState) {
+    }
+    // 修改
+    rpc Update (RoleUpdateRequest) returns (iok200.common.ResultState) {
+    }
+    // ID删除
+    rpc DeleteById (iok200.common.IdsRequest) returns (iok200.common.ResultState) {
+    }
+    // 查询
+    rpc Query (RoleQueryRequest) returns (RoleQueryResult) {
+    }
+    // 绑定权限
+    rpc BindAuth (RoleBindAuthRequest) returns (iok200.common.ResultState) {
+    }
+}

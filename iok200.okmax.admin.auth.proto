@@ -1,0 +1,43 @@
+syntax = "proto3";
+package iok200.okmax.admin;
+option go_package = "github.com/iok200/okmax-admin-api/pb";
+import "common.proto";
+import "iok200.okmax.admin.model.proto";
+
+message AuthCreateRequest {
+    // 权限信息
+    Auth auth = 1;
+    // 权限ID
+    repeated string authIds = 2;
+}
+
+
+message AuthUpdateRequest {
+    // 权限信息
+    Auth auth = 1;
+}
+
+
+message AuthQueryRequest {
+}
+message AuthQueryResult {
+    iok200.common.ResultState state = 1;
+    // 权限列表
+    repeated Auth auths = 2;
+}
+
+// 用户服务
+service AuthService {
+    // 创建
+    rpc Create (AuthCreateRequest) returns (iok200.common.ResultState) {
+    }
+    // 修改
+    rpc Update (AuthUpdateRequest) returns (iok200.common.ResultState) {
+    }
+    // ID删除
+    rpc DeleteById (iok200.common.IdsRequest) returns (iok200.common.ResultState) {
+    }
+    // 查询
+    rpc Query (AuthQueryRequest) returns (AuthQueryResult) {
+    }
+}
